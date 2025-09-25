@@ -5,8 +5,7 @@ START=99
 
 CONFIG=v2ray_server
 CONFIG_PATH=/var/etc/$CONFIG
-LOG_PATH=/var/log/$CONFIG
-LOG_APP_FILE=$LOG_PATH/app.log
+LOG_APP_FILE=/var/log/v2ray_server.log
 
 echolog() {
 	echo -e "$(date "+%Y-%m-%d %H:%M:%S"): $1" >> $LOG_APP_FILE
@@ -29,7 +28,7 @@ gen_v2ray_config_file() {
 }
 
 start_v2ray_server() {
-	mkdir -p $CONFIG_PATH $LOG_PATH
+	mkdir -p $CONFIG_PATH
 	touch $LOG_APP_FILE
 	config_foreach gen_v2ray_config_file "user"
 	fw3 reload > /dev/null 2>&1
@@ -39,7 +38,6 @@ stop_v2ray_server() {
 	fw3 reload > /dev/null 2>&1
 	ps -w | grep "$CONFIG_PATH/" | grep -v "grep" | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1 &
 	rm -rf $CONFIG_PATH
-	rm -rf $LOG_PATH
 }
 
 start() {
