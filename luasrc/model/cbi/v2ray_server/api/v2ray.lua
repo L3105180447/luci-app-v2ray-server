@@ -293,30 +293,16 @@ function to_move(file)
 
     local client_file = get_v2ray_file_path()
 
-    sys.call("mkdir -p " .. client_file)
-
-    if not arch or arch == "" then arch = auto_get_arch() end
-    local file_tree, sub_version = get_file_info(arch)
-    local result = nil
-    if is_armv7 and is_armv7 == true then
-        result = exec("/bin/mv", {
-            "-f", file .. "/v2ray_armv7", file .. "/v2ctl_armv7", client_file
-        }, nil, command_timeout) == 0
-    else
-        result = exec("/bin/mv",
-                      {"-f", file .. "/v2ray", file .. "/v2ctl", client_file},
-                      nil, command_timeout) == 0
-    end
-    if not result or not fs.access(client_file) then
+    local result = exec("/bin/mv", {"-f", file .. "/v2ray", client_file}, nil, command_timeout) == 0
+    if not result or not fs.access(client_file .. "/v2ray") then
         sys.call("/bin/rm -rf /tmp/v2ray_extract.*")
         return {
             code = 1,
-            error = i18n.translatef("Can't move new file to path: %s",
-                                    client_file)
+            error = i18n.translatef("Can't move new v2ray to path: %s", client_file)
         }
     end
-
-    exec("/bin/chmod", {"-R", "755", client_file})
+    
+    exec("/bin/chmod", {"755", client_file .. "/v2ray"})
 
     sys.call("/bin/rm -rf /tmp/v2ray_extract.*")
 
