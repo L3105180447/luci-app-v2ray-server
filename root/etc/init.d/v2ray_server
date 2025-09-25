@@ -40,7 +40,7 @@ stop_v2ray_server() {
 }
 
 status_v2ray_server() {
-	if ps -w | grep "$CONFIG_PATH/" | grep -v "grep" >/dev/null 2>&1; then
+	if ps | grep "$CONFIG_PATH/" | grep -v "grep" >/dev/null 2>&1; then
 		echo "v2ray_server is running."
 	else
 		echo "v2ray_server is not running."
