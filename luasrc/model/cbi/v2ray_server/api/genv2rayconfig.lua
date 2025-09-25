@@ -68,7 +68,7 @@ end
 
 local v2ray = {
     log = {
-        error = "/var/log/v2ray_sever.log",
+        error = "/var/log/v2ray_server.log",
         loglevel = "warning"
     },
     -- 传入连接
