@@ -39,6 +39,26 @@ stop_v2ray_server() {
 	rm -rf $CONFIG_PATH
 }
 
+status_v2ray_server() {
+	if ps -w | grep "$CONFIG_PATH/" | grep -v "grep" >/dev/null 2>&1; then
+		echo "v2ray_server is running."
+	else
+		echo "v2ray_server is not running."
+	fi
+
+	if [ -d "$CONFIG_PATH" ]; then
+		echo "Config directory : exists ($CONFIG_PATH)"
+	else
+		echo "Config directory : not found"
+	fi
+
+	if [ -f "$LOG_APP_FILE" ]; then
+		echo "Log file path    : $LOG_APP_FILE"
+	else
+		echo "Log file path    : not found"
+	fi
+}
+
 start() {
 	config_load $CONFIG
 	enable=$(uci get $CONFIG.@global[0].enable)
@@ -57,4 +77,8 @@ restart() {
 	stop
 	sleep 1
 	start
+}
+
+status() {
+	status_v2ray_server
 }
