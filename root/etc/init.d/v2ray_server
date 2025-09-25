@@ -2,7 +2,6 @@
 # Copyright (C) 2018-2020 Lienol <lawlienol@gmail.com>
 
 START=99
-USE_PROCD=1
 
 CONFIG=v2ray_server
 CONFIG_PATH=/var/etc/$CONFIG
