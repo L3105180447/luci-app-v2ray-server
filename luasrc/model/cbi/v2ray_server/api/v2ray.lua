@@ -89,7 +89,6 @@ local function compare_versions(ver1, comp, ver2)
         end
     end
 
-    -- 如果完全相等
     return (comp == "=" or comp == "==" or comp == "<=" or comp == ">=")
 end
 
