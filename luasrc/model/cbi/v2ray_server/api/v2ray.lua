@@ -171,15 +171,11 @@ local function get_api_json(url)
     return jsonc.parse(json_content) or {}
 end
 
-function get_v2ray_file_path() return "/usr/bin/v2ray" end
+function get_v2ray_file_path() return "/usr/bin" end
 
 function get_v2ray_version()
-    if get_v2ray_file_path() and get_v2ray_file_path() ~= "" then
-        if fs.access(get_v2ray_file_path() .. "/v2ray") then
-            return luci.sys.exec("echo -n `" .. get_v2ray_file_path() ..
-                                     "/v2ray version | awk '{print $2}' | sed -n 1P" ..
-                                     "`")
-        end
+    if fs.access(get_v2ray_file_path() .. "/v2ray") then
+        return luci.sys.exec("echo -n `" .. get_v2ray_file_path() .. "/v2ray version | awk '{print $2}' | sed -n 1P`")
     end
     return ""
 end
