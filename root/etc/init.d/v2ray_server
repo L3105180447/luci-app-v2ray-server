@@ -3,6 +3,8 @@
 
 START=99
 
+EXTRA_COMMANDS="status"
+EXTRA_HELP="        status          Show running status of v2ray_server"
 CONFIG=v2ray_server
 CONFIG_PATH=/var/etc/$CONFIG
 LOG_APP_FILE=/var/log/v2ray_server.log
